@@ -50,7 +50,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2022-04-07 12:32:04'
+  postUpdate: '2022-04-07 15:05:18'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
     })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/荡漾.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Wandersofb's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/04/07/Divisor/" title="约数"><img class="post_bg" src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/Divisor_anime.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="约数"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/07/Divisor/" title="约数">约数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-04-07T01:31:13.000Z" title="Created 2022-04-07 09:31:13">2022-04-07</time></span></div><div class="content">约数
 约数就是因数。主要记录一下约数个数、约数之和以及最大公约数的计算方法。如何求约数
 试除法是一个很好的办法。这个算法的大致意思是让小于n的数都和n相除，如果余数为零可以判断为合数。
-有了大致思路还不行，还可以优化。合数都是成对出现的，对吧。我们用n除以i，余数为零，那么商也是另一个余数。show me you code
+有了大致思路还不行，还可以优化。合数都是成对出现的，对吧。我们用n除以i，余数为零，那么商也是另一个约数。show me you code
 
 12345678910111213141516171819202122#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;int main()&#123;    int n; cin &gt;&gt; n;    while (n -- )&#123;        int m; cin &gt;&gt; m;        vector&lt;int&gt; p;        for (int i = 1; i &lt;= m / i; i ++)&#123;            if (m % i == 0)&#123;     ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/04/04/LinerSieve/" title="线性筛"><img class="post_bg" src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/LinerSieve_anime1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线性筛"></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/04/LinerSieve/" title="线性筛">线性筛</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-04-04T10:10:12.000Z" title="Created 2022-04-04 18:10:12">2022-04-04</time></span></div><div class="content">线性筛
 线性筛是一种时间复杂度为 $ O(n) $ 的算法，优于埃氏筛法的时间复杂度 $ O(n \log \log n) $ 。在 $ 10^7 $ 的数据量，二者运算时间会有接近一半的差距。
