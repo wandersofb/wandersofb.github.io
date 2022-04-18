@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>cs144-lab3 | Wandersofb's Blog</title><meta name="author" content="Jam Hu"><meta name="copyright" content="Jam Hu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="cs144-lab3lab3 的难度好大，看文档的第一眼是懵的，TCPSender 怎么这么复杂，它包含了许多 TCP 特性，例如：超时重传、拥塞控制等。导致一开始根本不知道怎么下手，几乎把文档看熟了才有写代码的动力，但是即便写出来也是很多 bug，照着测试 case 改，但是往往是改过这里，那里又通过不了，改了那里，这里又通过不了，最后发现往往是自己在架构的时候出现了问题，需要重构一下。唉，被卡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs144-lab3">
+<meta property="og:url" content="http://example.com/2022/04/18/cs144-lab3/index.html">
+<meta property="og:site_name" content="Wandersofb&#39;s Blog">
+<meta property="og:description" content="cs144-lab3lab3 的难度好大，看文档的第一眼是懵的，TCPSender 怎么这么复杂，它包含了许多 TCP 特性，例如：超时重传、拥塞控制等。导致一开始根本不知道怎么下手，几乎把文档看熟了才有写代码的动力，但是即便写出来也是很多 bug，照着测试 case 改，但是往往是改过这里，那里又通过不了，改了那里，这里又通过不了，最后发现往往是自己在架构的时候出现了问题，需要重构一下。唉，被卡">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/97621703_p0.webp">
+<meta property="article:published_time" content="2022-04-18T06:04:35.000Z">
+<meta property="article:modified_time" content="2022-04-18T08:25:38.351Z">
+<meta property="article:author" content="Jam Hu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/97621703_p0.webp"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/荡漾.jpg"><link rel="canonical" href="http://example.com/2022/04/18/cs144-lab3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'cs144-lab3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-18 16:25:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/荡漾.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/97621703_p0.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Wandersofb's Blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">cs144-lab3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-04-18T06:04:35.000Z" title="Created 2022-04-18 14:04:35">2022-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-04-18T08:25:38.351Z" title="Updated 2022-04-18 16:25:38">2022-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/lab/">lab</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/lab/cs144/">cs144</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="cs144-lab3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="cs144-lab3"><a href="#cs144-lab3" class="headerlink" title="cs144-lab3"></a>cs144-lab3</h3><p>lab3 的难度好大，看文档的第一眼是懵的，TCPSender 怎么这么复杂，它包含了许多 TCP 特性，例如：超时重传、拥塞控制等。导致一开始根本不知道怎么下手，几乎把文档看熟了才有写代码的动力，但是即便写出来也是很多 bug，照着测试 case 改，但是往往是改过这里，那里又通过不了，改了那里，这里又通过不了，最后发现往往是自己在架构的时候出现了问题，需要重构一下。唉，被卡了好几天才通过所有 case，但是代码肯定还是有问题的，等 lab4 在做深刻探讨。</p>
+<h4 id="TCPSender"><a href="#TCPSender" class="headerlink" title="TCPSender"></a>TCPSender</h4><p>TCP sender 说起来简单，就是尽可能的发送 segment，如果发送的 segment 没有被对方确认那么重新传输，直到所有的 segment 都被确认或者由于超时断开连接。或者我们可以更细致的描述一下 TCP sender。</p>
+<ul>
+<li>跟踪接收方的窗口（处理传入的确认号（<strong>ackno</strong>）和窗口大小（<strong>window size</strong>）</li>
+<li>尽可能通过读取 <code>ByteStream</code>，创建新的 TCP segments（包含 <code>syn</code> 和 <code>fin</code>，如果需要），并发送它们，直到窗口满了或者 <code>ByteStream</code> 空了。</li>
+<li>追踪那些已经发送但还没确认的段 - “outstanding” segments（不知道怎么翻译，暂且叫多独立段吧）</li>
+<li>如果这些独立段超时了，那么我们重新发送他们。</li>
+</ul>
+<h4 id="几个-tricky-点"><a href="#几个-tricky-点" class="headerlink" title="几个 tricky 点"></a>几个 tricky 点</h4><ul>
+<li><em>如何判断是不是独立段？</em> 文档说的很详细了，就是实现一个计时器，来掌控时间的流逝，进而判断是否超过了我们规定的时间（RTO）还没有确认这个段。</li>
+<li><em>如何确认一个段？</em> <code>ack_received</code> 会确认段并更新我们 sender 的窗口，这个函数会判断 <code>ackno</code> 是否符合实际情况，也就是说排除确认了已经确认的段，排除确认了还没发送的段。只要是确认我们 sender 窗口的段都行，甚至如果第一个还未确认的段的部分确认也行，只不过部分确认的话，我们只更新 sender 窗口，不认定整个段确认了。</li>
+<li><em>什么是 sender 窗口？</em> 其实当 <code>ack_received</code> 确认段并更新窗口的时候，所谓的这个窗口是 receiver 的适应性窗口，是说 receiver 在这个 <code>ackno</code> 下还有多大。而我们的 sender 窗口，在大部分情况下和 receiver 窗口是一致的（确认了完整的段），但是也有特殊情况，就是当确认部分段的情况。画张图会清晰一点。<br><img src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/IMG_0423(20220418-153556" alt="">.PNG)<br>我们的 sender 窗口会被 <code>fill_window</code> 尽可能的填满。而当 <code>ack_received</code> 只确认了部分的段的情况下，我们更新 sender 窗口的情况就要小心了，因为它在之前是有负载的，也就是那些未确定的段。要考虑那些已经发送但还没确认完全确认的负载大小。</li>
+<li><em>当 received 窗口为零时怎么办？</em> 当然我们不能停下我们的发送，如果停下的话且没从 receiver 得到额外的 ack，那么我们就会卡住。TCP 的一个小特性，当 <code>ack_received</code> 窗口为零时，那么认定 sender 窗口为 1。进行一个字节的发送（包含 syn 和 fin）。换句话说，只要我们 <code>ack_received</code>，就一定会发送 segments，除非 <code>ByteStream</code> 为空或者 fin 已经发送了。</li>
+</ul>
+<h4 id="hint"><a href="#hint" class="headerlink" title="hint"></a>hint</h4><ul>
+<li>当 <code>fill_window</code> 时要严格按照 absolute_seqno 顺序。而 <code>syn</code> 会是三次握手中的前两次，要独立发送，不携带任何 payload，而 fin 可以携带 payload，也可以不携带，但当 <code>ByteStream</code> 为空时且 <code>eof</code> 为 true 时，我们还发送 fin。</li>
+<li>如果要发送空 payload，那么不要放入未确认段中，且不要开启 timer。</li>
+<li>window 为零时，我们认定 sender window 为 1。但我们只发送一次空 payload。</li>
+<li>当未确认段的集合为空且已经发送了 fin，那么关闭 timer，<code>tick</code> 无效。</li>
+</ul>
+<h3 id="后言"><a href="#后言" class="headerlink" title="后言"></a>后言</h3><p>大致的情况就是这些，剩余的没说的文档上都写得很清楚，不会被忽略掉。这个 lab 还是挺难的。等 lab4 完成后再回来补充。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/荡漾.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jam Hu</div><div class="author-info__description">Wandersofb</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wandersofb" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wandersofb@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#cs144-lab3"><span class="toc-number">1.</span> <span class="toc-text">cs144-lab3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCPSender"><span class="toc-number">1.1.</span> <span class="toc-text">TCPSender</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA-tricky-%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">几个 tricky 点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hint"><span class="toc-number">1.3.</span> <span class="toc-text">hint</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">后言</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/wandersofb/picture_bed/97538914_p0_master1200.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Jam Hu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
