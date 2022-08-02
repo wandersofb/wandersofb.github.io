@@ -1,8 +1,8 @@
 ## 个人简介
-- 目前大三在读学生
+- 23届大学生
 - 邮箱：wandersofb@163.com
 - [github](https://github.com/wandersofb)
-- 感兴趣方向：基础架构、数据库、操作系统
+- 感兴趣方向：数据库、操作系统、C++
 
 ## blog 
 - [学习之旅](https://wandersofb.gitbook.io/xue-xi-zhi-lv/)
