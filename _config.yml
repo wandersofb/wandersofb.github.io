@@ -1,0 +1,126 @@
+# Site
+repository: sproogen/resume-theme
+favicon: images/favicon.ico
+
+# Content configuration version
+version: 2
+
+# Personal info
+name: Yang Hu
+title: software engineer (C++/CUDA/HIP/python/Go)
+email: wandersofb3@gmail.com
+website: https://wandersofb.github.io
+
+# Dark Mode (true/false/never)
+darkmode: false
+
+# Social links
+# twitter_username: 
+github_username:  wandersofb
+# facebook_username: 
+# instagram_username: zamazan4ik
+linkedin_username: zamazan4ik
+# youtube_username: 
+
+# Additional icon links
+# additional_links:
+# - title: itsgoingto.be
+#   icon: fas fa-globe
+#   url: https://www.itsgoingto.be
+# - title: another link
+#   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
+#   url: Link url (eg. https://google.com)
+
+# Google Analytics and Tag Manager
+# Using more than one of these may cause issues with reporting
+# gtm: "GTM-0000000"
+# gtag: "UA-00000000-0"
+# google_analytics: "UA-00000000-0"
+
+# About Section
+# about_title: Here should be some serious title
+about_profile_image: 
+about_content: | # this will include new lines to allow paragraphs
+  Hi, my name is Yang. My favorite field is about AI and Database!
+
+
+content:
+  - title: Education
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: left
+        title: Shanghai University
+        link: https://en.shu.edu.cn/
+        sub_title: Master's Degree in Computer Technology
+        caption: Sep. 2025 - Jun. 2028
+        description: |
+          - Right Now Studying AI...
+
+
+      - layout: left
+        title: Xi'an Technological University
+        link: https://en.xatu.edu.cn/
+        sub_title: Bachelor's Degree in Computer Science
+        caption: Jul. 2023 - Feb. 2024
+        description: |
+          - During my undergraduate studies, I focused on computer science fundamentals, software development, and data structures
+          - I learned many well-known open courses such as CMU15-213, MIT6.s081, CMU15-445, and MIT6.824
+          - I also participated in various Chinese coding competitions, which helped me to improve my problem-solving skills and teamwork abilities.
+
+  - title: Experience
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: left
+        title: Yaspeed
+        link: https://www.yaspeed.com/
+        sub_title: Software Engineer
+        caption: Apr. 2025 - Present
+        description: |
+          - Database Development: 
+            - Worked on the development and optimization of a high-performance distributed database system
+            - Implemented various features such as query optimization, indexing, and data partitioning to improve
+
+          - Migrating CUDF to the DTK platform:
+            - CUDF is a high-performance data processing framework widely used in big data applications
+            - I worked on migrating CUDF to the DTK platform to improve its performance and scalability
+
+      - layout: left
+        title: MacroSAN
+        link: https://www.macrosan.com
+        sub_title: Software Engineer
+        caption: Jul. 2023 - Feb. 2024
+        description: |
+          - Samba protocol development:
+            - Samba protocol is widely used in NAS and storage systems for file sharing in enterprise environments.
+            - I worked on improving Samba performance and reliability in large-scale deployments
+            - Optimized Samba Failover Mechanism: Improved persistent handle reconnection logic, reducing deadlock-related errors
+            - lowered connection failure rate from 4% to 0.5%, with support for 2000+ concurrent requests and 50% throughput increase
+
+            
+
+
+  # - title: Conferences
+  #   layout: text
+  #   content: |
+
+  # - title: Publications
+  #   layout: text
+  #   content: |
+
+  # - title: Pet project (YourGame)
+  #   layout: text
+  #   content: |
+
+# Footer
+footer_show_references: true
+# references_title: References on request (Override references text)
+
+# Build settings
+remote_theme: sproogen/resume-theme
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+plugins:
+ - jekyll-seo-tag
