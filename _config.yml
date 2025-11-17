@@ -63,9 +63,9 @@ content:
         sub_title: Bachelor's Degree in Computer Science
         caption: Jul. 2023 - Feb. 2024
         description: |
-          - During my undergraduate studies, I focused on computer science fundamentals, software development, and data structures
-          - I learned many well-known open courses such as CMU15-213, MIT6.s081, CMU15-445, and MIT6.824
-          - I also participated in various Chinese coding competitions, which helped me to improve my problem-solving skills and teamwork abilities.
+          - Built solid foundations in computer architecture, software engineering, and data structures through course projects and labs.
+          - Completed flagship systems courses (CMU 15-213/15-445, MIT 6.S081/6.824) with extensive hands-on exercises in OS, databases, and distributed systems.
+          - Competed in national programming contests (e.g., [CUMCM](https://en.mcm.edu.cn/)).
 
   - title: Experience
     layout: list # Type of content section (list/text)
@@ -90,13 +90,9 @@ content:
         sub_title: Software Engineer
         caption: Jul. 2023 - Feb. 2024
         description: |
-          - Samba protocol development:
-            - Samba protocol is widely used in NAS and storage systems for file sharing in enterprise environments.
-            - I worked on improving Samba performance and reliability in large-scale deployments
-            - Optimized Samba Failover Mechanism: Improved persistent handle reconnection logic, reducing deadlock-related errors
-            - lowered connection failure rate from 4% to 0.5%, with support for 2000+ concurrent requests and 50% throughput increase
-
-            
+          - Samba Protocol Development:
+            - Hardened the [Samba protocol](https://www.samba.org/) stack for enterprise NAS/storage deployments, boosting throughput and reliability at scale.
+            - Redesigned persistent handle reconnection and failover flows to sharply reduce deadlock-related errors during client switchover.
 
 
   # - title: Conferences
