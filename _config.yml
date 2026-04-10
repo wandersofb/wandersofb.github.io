@@ -7,7 +7,7 @@ version: 2
 
 # Personal info
 name: Yang Hu
-title: Software Engineer (C++/CUDA/Python/Go)
+title: Software Engineer (C++/CUDA)
 email: wandersofb3@gmail.com
 website: https://wandersofb.github.io
 
@@ -39,9 +39,9 @@ linkedin_username: wandersofb
 
 # About Section
 # about_title: Here should be some serious title
-about_profile_image: 
+about_profile_image: images/selfie.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  Hi, my name is Yang. My favorite field is about AI and Database!
+  Sorry, I had to go save the world for a moment 😄 Hey, you—hope you stay happy and healthy every day! ⭐
 
 
 content:
@@ -61,10 +61,10 @@ content:
         title: Xi'an Technological University
         link: https://en.xatu.edu.cn/
         sub_title: Bachelor's Degree in Computer Science
-        caption: Jul. 2023 - Feb. 2024
+        caption: Jul. 2019 - Feb. 2023
         description: |
           - Built solid foundations in computer architecture, software engineering, and data structures through course projects and labs.
-          - Completed flagship systems courses (CMU 15-213/15-445, MIT 6.S081/6.824) with extensive hands-on exercises in OS, databases, and distributed systems.
+          - Completed flagship systems courses ([CMU15-213](https://csapp.cs.cmu.edu/), [CMU15-445](https://15445.courses.cs.cmu.edu/), [MIT6.S081](https://pdos.csail.mit.edu/6.828/), [MIT6.824](https://pdos.csail.mit.edu/6.824/)) with extensive hands-on exercises in OS, databases, and distributed systems.
           - Competed in national programming contests (e.g., [CUMCM](https://en.mcm.edu.cn/)).
 
   - title: Experience
@@ -76,13 +76,13 @@ content:
         sub_title: Software Engineer
         caption: Apr. 2025 - Present
         description: |
-          - Database Development: 
+          - GPU-accelerated Distributed Database Development: 
             - Worked on the development and optimization of a high-performance distributed database system
             - Implemented various features such as query optimization, indexing, and data partitioning to improve
 
-          - Migrating CUDF to the DTK platform:
-            - CUDF is a high-performance data processing framework widely used in big data applications
-            - I worked on migrating CUDF to the DTK platform to improve its performance and scalability
+          - Migrating [cuDF](https://github.com/rapidsai/cudf) to the ROCm platform:
+            - cuDF is a high-performance data processing framework widely used in big data applications
+            - I worked on migrating cuDF to the HIP/DTK platform to improve its performance and scalability
 
       - layout: left
         title: MacroSAN
