@@ -23,13 +23,10 @@ linkedin_username: wandersofb
 # youtube_username: 
 
 # Additional icon links
-# additional_links:
-# - title: itsgoingto.be
-#   icon: fas fa-globe
-#   url: https://www.itsgoingto.be
-# - title: another link
-#   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
-#   url: Link url (eg. https://google.com)
+additional_links:
+  - title: Blog
+    icon: fas fa-pen-nib
+    url: /blog/
 
 # Google Analytics and Tag Manager
 # Using more than one of these may cause issues with reporting

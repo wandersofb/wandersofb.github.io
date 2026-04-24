@@ -1,0 +1,22 @@
+---
+layout: blog_default
+title: Blog
+permalink: /blog/
+---
+<div class="container blog-container">
+  {% if site.posts.size == 0 %}
+    <p class="blog-empty">还没有文章，敬请期待 ✨</p>
+  {% else %}
+    <ul class="blog-list">
+      {% for post in site.posts %}
+        <li class="blog-list-item">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+          <a class="blog-list-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.excerpt %}
+            <p class="blog-list-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

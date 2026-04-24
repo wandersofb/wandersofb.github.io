@@ -1,0 +1,10 @@
+{%- assign _href = include.href | strip -%}
+{%- assign _proto = _href | slice: 0, 4 -%}
+{%- assign _first = _href | slice: 0, 1 -%}
+{%- if _proto == 'http' -%}
+<a href="{{ _href }}" target="_blank" class="{{ include.class }}">
+{%- elsif _first == '/' -%}
+<a href="{{ _href | relative_url }}" class="{{ include.class }}">
+{%- else -%}
+<a href="//{{ _href }}" target="_blank" class="{{ include.class }}">
+{%- endif -%}
