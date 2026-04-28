@@ -2,7 +2,7 @@
 layout: post
 title: "Hello, blog"
 date: 2026-04-24
-tags: 
+tags: 生活
 ---
 
 开个头，算是给这个角落立个牌子。

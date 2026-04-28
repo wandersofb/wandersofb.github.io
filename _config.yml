@@ -74,12 +74,13 @@ content:
         caption: Apr. 2025 - Present
         description: |
           - GPU-accelerated Distributed Database Development: 
-            - Worked on the development and optimization of a high-performance distributed database system
-            - Implemented various features such as query optimization, indexing, and data partitioning to improve
+            - Worked on the development and optimization of a high-performance GPU-accelerated distributed database system
+            - Implemented pipeline SQL features for both host and device execution, including `GROUP BY`, `SET OPERATIONS`, and `WHERE IN`
+            - Improved `WHERE EXISTS` performance by implementing a GPU-accelerated algorithm based on this [paper](https://15799.courses.cs.cmu.edu/spring2025/papers/11-unnesting/neumann-btw2015.pdf)
 
-          - Migrating [cuDF](https://github.com/rapidsai/cudf) to the ROCm platform:
-            - cuDF is a high-performance data processing framework widely used in big data applications
-            - I worked on migrating cuDF to the HIP/DTK platform to improve its performance and scalability
+          - Migrating [cuDF](https://github.com/rapidsai/cudf) to the [ROCm](https://github.com/ROCm/rocm) platform:
+            - cuDF is a high-performance data processing framework widely used in big data applications for GPU-accelerated data manipulation and analysis
+            - I worked on migrating cuDF to the ROCm/DTK platform to improve its performance and scalability
 
       - layout: left
         title: MacroSAN
