@@ -38,7 +38,8 @@ additional_links:
 # about_title: Here should be some serious title
 about_profile_image: images/selfie.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  Sorry, I had to go save the world for a moment 😄 Hey, you—hope you stay happy and healthy every day! ⭐
+  - Software engineer specializing in high-performance data systems, with hands-on experience in GPU-accelerated query execution, SQL engine internals, and distributed systems.
+  - Strong background in query optimization, execution pipelines, and system-level performance tuning, with the ability to translate research ideas into production-ready implementations.
 
 
 content:
@@ -60,9 +61,8 @@ content:
         sub_title: Bachelor's Degree in Computer Science
         caption: Jul. 2019 - Feb. 2023
         description: |
-          - Built solid foundations in computer architecture, software engineering, and data structures through course projects and labs.
+          - Gained hands-on experience in computer architecture, software engineering, and data structures through course projects and labs.
           - Completed flagship systems courses ([CMU15-213](https://csapp.cs.cmu.edu/), [CMU15-445](https://15445.courses.cs.cmu.edu/), [MIT6.S081](https://pdos.csail.mit.edu/6.828/), [MIT6.824](https://pdos.csail.mit.edu/6.824/)) with extensive hands-on exercises in OS, databases, and distributed systems.
-          - Competed in national programming contests (e.g., [CUMCM](https://en.mcm.edu.cn/)).
 
   - title: Experience
     layout: list # Type of content section (list/text)
@@ -73,14 +73,18 @@ content:
         sub_title: Software Engineer
         caption: Apr. 2025 - Present
         description: |
-          - GPU-accelerated Distributed Database Development: 
-            - Worked on the development and optimization of a high-performance GPU-accelerated distributed database system
-            - Implemented pipeline SQL features for both host and device execution, including `GROUP BY`, `SET OPERATIONS`, and `WHERE IN`
-            - Improved `WHERE EXISTS` performance by implementing a GPU-accelerated algorithm based on this [paper](https://15799.courses.cs.cmu.edu/spring2025/papers/11-unnesting/neumann-btw2015.pdf)
-
-          - Migrating [cuDF](https://github.com/rapidsai/cudf) to the [ROCm](https://github.com/ROCm/rocm) platform:
-            - cuDF is a high-performance data processing framework widely used in big data applications for GPU-accelerated data manipulation and analysis
-            - I worked on migrating cuDF to the ROCm/DTK platform to improve its performance and scalability
+          - GPU-Accelerated Query Execution Engine
+            - Designed and implemented GPU-aware execution pipelines for SQL operators, including `GROUP BY`, `WHERE IN`, and `set operations`, enabling efficient host-device co-execution.
+            - Built vectorized aggregation and filtering logic on GPU, improving parallelism and reducing CPU-side bottlenecks in query execution.
+            - Optimized data movement between CPU and GPU to minimize transfer overhead in large-scale workloads.
+          - Optimization of Correlated Subqueries (`WHERE EXISTS`)
+            - Implemented a decorrelation strategy for EXISTS subqueries based on the paper “[Unnesting Arbitrary Queries](https://15799.courses.cs.cmu.edu/spring2025/papers/11-unnesting/neumann-btw2015.pdf)”.
+            - Rewrote correlated subqueries into join-based execution plans (e.g., `CROSS JOIN` + `LEFT ANY JOIN`) to eliminate per-row subquery execution.
+            - Adapted the rewritten plans to fit GPU execution constraints, improving performance for complex nested queries.
+          - [cuDF](https://github.com/rapidsai/cudf) Migration to [ROCm](https://github.com/ROCm/rocm) Platform
+            - Ported key components of the cuDF framework from CUDA to the ROCm ecosystem.
+            - Resolved compatibility issues in GPU memory management and kernel execution, improving portability across GPU vendors.
+            - Contributed to enabling vendor-agnostic GPU data processing pipelines.
 
       - layout: left
         title: MacroSAN
