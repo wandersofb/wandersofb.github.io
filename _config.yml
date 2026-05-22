@@ -38,8 +38,9 @@ additional_links:
 # about_title: Here should be some serious title
 about_profile_image: images/selfie.jpeg
 about_content: | # this will include new lines to allow paragraphs
-  - Software engineer specializing in high-performance data systems, with hands-on experience in GPU-accelerated query execution, SQL engine internals, and distributed systems.
-  - Strong background in query optimization, execution pipelines, and system-level performance tuning, with the ability to translate research ideas into production-ready implementations.
+  Software engineer specializing in GPU-accelerated data systems and SQL engine internals. Experienced in CUDA/HIP GPU computing, distributed systems, and OS-level programming.
+
+  [Resume (PDF)](https://drive.google.com/file/d/1PWCmxlElISqNkcAibzhif_96XksZJbcU/view?usp=sharing)
 
 
 content:
@@ -49,20 +50,17 @@ content:
       - layout: left
         title: Shanghai University
         link: https://en.shu.edu.cn/
-        sub_title: Master's Degree in Computer Technology
-        caption: Sep. 2025 - Present 
-        description: |
-          - Right Now Studying AI...
-
+        sub_title: M.Eng. (Part-time), Computer Technology
+        caption: Sep. 2025 - Jun. 2028 (expected)
+        description: Currently studying AI.
 
       - layout: left
         title: Xi'an Technological University
         link: https://en.xatu.edu.cn/
-        sub_title: Bachelor's Degree in Computer Science
-        caption: Jul. 2019 - Feb. 2023
+        sub_title: B.Eng., Computer Science · Top 15% in Major
+        caption: Sep. 2019 - Jun. 2023
         description: |
-          - Gained hands-on experience in computer architecture, software engineering, and data structures through course projects and labs.
-          - Completed flagship systems courses ([CMU15-213](https://csapp.cs.cmu.edu/), [CMU15-445](https://15445.courses.cs.cmu.edu/), [MIT6.S081](https://pdos.csail.mit.edu/6.828/), [MIT6.824](https://pdos.csail.mit.edu/6.824/)) with extensive hands-on exercises in OS, databases, and distributed systems.
+          Completed hands-on systems courses: [CMU15-445](https://15445.courses.cs.cmu.edu/), [MIT6.S081](https://pdos.csail.mit.edu/6.828/), [MIT6.824](https://pdos.csail.mit.edu/6.824/), [CS144](https://cs144.github.io/).
 
   - title: Experience
     layout: list # Type of content section (list/text)
@@ -70,44 +68,63 @@ content:
       - layout: left
         title: Yaspeed
         link: https://www.yaspeed.com/
-        sub_title: Software Engineer
+        sub_title: Software Engineer · GPU-Accelerated Database Engine
         caption: Apr. 2025 - Present
         description: |
-          - GPU-Accelerated Query Execution Engine
-            - Designed and implemented GPU-aware execution pipelines for SQL operators, including `GROUP BY`, `WHERE IN`, and `set operations`, enabling efficient host-device co-execution.
-            - Built vectorized aggregation and filtering logic on GPU, improving parallelism and reducing CPU-side bottlenecks in query execution.
-            - Optimized data movement between CPU and GPU to minimize transfer overhead in large-scale workloads.
-          - Optimization of Correlated Subqueries (`WHERE EXISTS`)
-            - Implemented a decorrelation strategy for EXISTS subqueries based on the paper “[Unnesting Arbitrary Queries](https://15799.courses.cs.cmu.edu/spring2025/papers/11-unnesting/neumann-btw2015.pdf)”.
-            - Rewrote correlated subqueries into join-based execution plans (e.g., `CROSS JOIN` + `LEFT ANY JOIN`) to eliminate per-row subquery execution.
-            - Adapted the rewritten plans to fit GPU execution constraints, improving performance for complex nested queries.
-          - [cuDF](https://github.com/rapidsai/cudf) Migration to [ROCm](https://github.com/ROCm/rocm) Platform
-            - Ported key components of the cuDF framework from CUDA to the ROCm ecosystem.
-            - Resolved compatibility issues in GPU memory management and kernel execution, improving portability across GPU vendors.
-            - Contributed to enabling vendor-agnostic GPU data processing pipelines.
+          GPU-accelerated SQL database engine. Built GPU execution pipelines, vectorized SQL operators (`GROUP BY`, `WHERE IN`, set operations), and full-stack LIST partition table support (SQL parser → execution engine).
+
+      - layout: left
+        title: Yaspeed
+        link: https://www.yaspeed.com/
+        sub_title: Software Engineer · Hygon cuDF Port
+        caption: Jul. 2025 - Feb. 2026
+        description: |
+          Ported NVIDIA RAPIDS [cuDF](https://github.com/rapidsai/cudf) from CUDA to HIP/ROCm for Hygon DCU GPUs; merged **47** MRs covering aggregations, JOINs, string ops, and I/O.
 
       - layout: left
         title: MacroSAN
         link: https://www.macrosan.com
-        sub_title: Software Engineer
+        sub_title: Software Engineer · NAS Protocol
         caption: Jul. 2023 - Feb. 2024
         description: |
-          - Samba Protocol Development:
-            - Hardened the [Samba protocol](https://www.samba.org/) stack for enterprise NAS/storage deployments, boosting throughput and reliability at scale.
-            - Redesigned persistent handle reconnection and failover flows to sharply reduce deadlock-related errors during client switchover.
+          Enterprise NAS development with Samba/SMB; improved connection stability and built a multithreaded I/O testing tool.
 
 
-  # - title: Conferences
-  #   layout: text
-  #   content: |
+  - title: Projects
+    layout: list
+    content:
+      - layout: left
+        title: MIT 6.824
+        link: https://github.com/wandersofb/MIT6.824
+        sub_title: Go · Distributed Systems
+        description: MapReduce framework + Raft consensus (leader election, log replication, persistence).
 
-  # - title: Publications
-  #   layout: text
-  #   content: |
+      - layout: left
+        title: CMU 15-445
+        link: https://github.com/wandersofb/cmu-15445
+        sub_title: C++ · Database Systems
+        description: Disk-oriented DB kernel — LRU-K buffer pool, hash index, query executors, 2PL lock manager.
 
-  # - title: Pet project (YourGame)
-  #   layout: text
-  #   content: |
+      - layout: left
+        title: CS144
+        link: https://github.com/wandersofb/cs144
+        sub_title: C++ · Computer Networks
+        description: Full TCP/IP stack — byte stream, segment reassembler, sender/receiver, connection management.
+
+      - layout: left
+        title: MIT 6.S081
+        link: https://github.com/wandersofb/mit6.s081
+        sub_title: C · Operating Systems
+        description: XV6 OS extensions — Lazy Allocation, Copy-on-Write, `mmap`, multi-level inode indexing.
+
+  - title: Technical Skills
+    layout: text
+    content: |
+      - **Languages**: C++, C, Python
+      - **GPU Computing**: CUDA, HIP/ROCm, cuDF, Thrust
+      - **Databases**: SQL engine, query optimization, MySQL
+      - **Systems**: OS kernel, memory management, multithreading
+      - **Tools**: Git, CMake, Flex/Bison, GDB, Docker
 
 # Footer
 footer_show_references: false
