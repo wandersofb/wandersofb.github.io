@@ -71,15 +71,8 @@ content:
         sub_title: Software Engineer · GPU-Accelerated Database Engine
         caption: Apr. 2025 - Present
         description: |
-          GPU-accelerated SQL database engine. Built GPU execution pipelines, vectorized SQL operators (`GROUP BY`, `WHERE IN`, set operations), and full-stack LIST partition table support (SQL parser → execution engine).
-
-      - layout: left
-        title: Yaspeed
-        link: https://www.yaspeed.com/
-        sub_title: Software Engineer · Hygon cuDF Port
-        caption: Jul. 2025 - Feb. 2026
-        description: |
-          Ported NVIDIA RAPIDS [cuDF](https://github.com/rapidsai/cudf) from CUDA to HIP/ROCm for Hygon DCU GPUs; merged **47** MRs covering aggregations, JOINs, string ops, and I/O.
+          - GPU-accelerated SQL database engine. Built GPU execution pipelines, vectorized SQL operators (`GROUP BY`, `WHERE IN`, set operations), and full-stack LIST partition table support (SQL parser → execution engine).
+          - Ported NVIDIA RAPIDS [cuDF](https://github.com/rapidsai/cudf) from CUDA to HIP/ROCm for Hygon DCU GPUs; merged **47** MRs covering aggregations, JOINs, string ops, and I/O.
 
       - layout: left
         title: MacroSAN
