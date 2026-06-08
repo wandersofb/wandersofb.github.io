@@ -12,9 +12,49 @@ layout: blog_default
     </p>
   </header>
 
+  <nav class="blog-toc" id="blog-toc" hidden>
+    <p class="blog-toc-title">目录</p>
+    <ul class="blog-toc-list"></ul>
+  </nav>
+
   <div class="blog-post-content">
     {{ content }}
   </div>
+
+  <script>
+    (function () {
+      var content = document.querySelector('.blog-post-content');
+      var toc = document.getElementById('blog-toc');
+      if (!content || !toc) return;
+
+      var headings = content.querySelectorAll('h2, h3, h4');
+      if (headings.length < 2) return; // not worth a TOC
+
+      var list = toc.querySelector('.blog-toc-list');
+      var slugCount = {};
+
+      headings.forEach(function (h, i) {
+        if (!h.id) {
+          var base = (h.textContent || 'section').trim()
+            .toLowerCase()
+            .replace(/[^\w一-龥]+/g, '-')
+            .replace(/^-+|-+$/g, '') || 'section';
+          slugCount[base] = (slugCount[base] || 0) + 1;
+          h.id = slugCount[base] > 1 ? base + '-' + slugCount[base] : base;
+        }
+
+        var li = document.createElement('li');
+        li.className = 'blog-toc-item blog-toc-' + h.tagName.toLowerCase();
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+
+      toc.hidden = false;
+    })();
+  </script>
 
   <p class="blog-back">
     <a href="{{ '/blog/' | relative_url }}">← Back to all posts</a>

@@ -45,36 +45,74 @@
 }
 
 .blog-list-item {
-  padding: 1.25rem 0;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 1.25rem;
 
   &:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
 
-  time {
-    color: #999;
-    font-size: 1.1rem;
+  .blog-list-link {
     display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .blog-list-title {
-    font-size: 1.85rem;
-    font-weight: 600;
+    padding: 1.75rem 2rem;
+    border: 1px solid #ececec;
+    border-radius: 12px;
     text-decoration: none;
-    color: #222;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 
     &:hover {
-      text-decoration: underline;
+      border-color: #ddd;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+      transform: translateY(-2px);
     }
   }
 
-  .blog-list-excerpt {
-    color: #666;
-    margin: 0.5rem 0 0;
-    line-height: 1.6;
-    font-size: 1.15rem;
+  .blog-list-title {
+    display: block;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.3;
+  }
+
+  .blog-list-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.85rem;
+    color: #999;
+    font-size: 1.05rem;
+
+    time {
+      color: #999;
+    }
+
+    .blog-list-words {
+      &::before {
+        content: "·";
+        margin-right: 0.85rem;
+        color: #ccc;
+      }
+    }
+
+    .blog-list-tags {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+
+      &::before {
+        content: "·";
+        margin-right: 0.45rem;
+        color: #ccc;
+      }
+    }
+
+    .blog-list-tag {
+      background: #f0f0f0;
+      color: #777;
+      border-radius: 999px;
+      padding: 0.1rem 0.7rem;
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -82,6 +120,46 @@
   color: #999;
   text-align: center;
   padding: 2rem 0;
+}
+
+.blog-toc {
+  margin: 0 0 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 10px;
+
+  .blog-toc-title {
+    margin: 0 0 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .blog-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-toc-item {
+    margin: 0.3rem 0;
+    line-height: 1.5;
+
+    a {
+      color: #666;
+      text-decoration: none;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .blog-toc-h3 { padding-left: 1.25rem; }
+  .blog-toc-h4 { padding-left: 2.5rem; font-size: 0.95em; }
 }
 
 .blog-post-header {
@@ -95,7 +173,7 @@
 
   .blog-meta {
     color: #999;
-    font-size: 0.9rem;
+    font-size: 1.4rem;
     margin: 0;
   }
 
@@ -107,10 +185,25 @@
 .blog-post-content {
   line-height: 1.75;
 
-  h2, h3, h4 {
+  h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
     margin-bottom: 0.75rem;
+    // Reset the resume theme's section-header styling (centered, dashed, oversized)
+    font-weight: 600;
+    text-align: left;
+    border-bottom: none;
+    padding-bottom: 0;
+    color: #222;
+    line-height: 1.3;
   }
+
+  // Root font-size is 10px (theme sets 62.5%), so rem values are ×10px.
+  // Body text is 16px, headings must clearly exceed that.
+  h1 { font-size: 3.2rem; }
+  h2 { font-size: 2.6rem; }
+  h3 { font-size: 2.2rem; }
+  h4 { font-size: 1.9rem; }
+  h5, h6 { font-size: 1.7rem; }
 
   p {
     margin-bottom: 1rem;

@@ -8,7 +8,11 @@
   {%- include header.html -%}
 
   <nav class="container site-nav no-print">
-    <a href="{{ '/' | relative_url }}">← Resume</a>
+    {%- if page.layout == 'post' -%}
+      <a href="{{ '/blog/' | relative_url }}">← Blog</a>
+    {%- else -%}
+      <a href="{{ '/' | relative_url }}">← Resume</a>
+    {%- endif -%}
   </nav>
 
   <main class="page-content" aria-label="Content">
