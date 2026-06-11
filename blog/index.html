@@ -3,28 +3,93 @@ layout: blog_default
 title: Blog
 permalink: /blog/
 ---
-<div class="container blog-container">
+<div class="container blog-container blog-container--with-sidebar">
   {% if site.posts.size == 0 %}
     <p class="blog-empty">还没有文章，敬请期待 ✨</p>
   {% else %}
-    <ul class="blog-list">
-      {% for post in site.posts %}
-        <li class="blog-list-item">
-          <a class="blog-list-link" href="{{ post.url | relative_url }}">
-            <span class="blog-list-title">{{ post.title }}</span>
-            <span class="blog-list-meta">
-              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-              {% assign word_count = post.content | strip_html | strip_newlines | replace: " ", "" | size %}
-              <span class="blog-list-words">{{ word_count }} 字</span>
-              {% if post.tags and post.tags.size > 0 %}
-                <span class="blog-list-tags">
-                  {% for tag in post.tags %}<span class="blog-list-tag">{{ tag }}</span>{% endfor %}
-                </span>
-              {% endif %}
-            </span>
-          </a>
-        </li>
+    {% assign all_tags = "" | split: "" %}
+    {% for post in site.posts %}
+      {% for tag in post.tags %}
+        {% unless all_tags contains tag %}
+          {% assign all_tags = all_tags | push: tag %}
+        {% endunless %}
       {% endfor %}
-    </ul>
+    {% endfor %}
+    <aside class="blog-sidebar">
+      <h3 class="blog-sidebar-title">分类</h3>
+      <ul class="blog-cat-list">
+        <li><a class="blog-cat-link is-active" href="#" data-tag="">全部<span class="blog-cat-count">{{ site.posts.size }}</span></a></li>
+        {% for tag in all_tags %}
+          {% assign tagged = site.posts | where_exp: "post", "post.tags contains tag" %}
+          <li><a class="blog-cat-link" href="#{{ tag | uri_escape }}" data-tag="{{ tag }}">{{ tag }}<span class="blog-cat-count">{{ tagged.size }}</span></a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+    <div class="blog-main">
+      {% assign pinned_posts = site.posts | where_exp: "post", "post.pinned == true" %}
+      {% assign normal_posts = site.posts | where_exp: "post", "post.pinned != true" %}
+      {% assign ordered_posts = pinned_posts | concat: normal_posts %}
+      <ul class="blog-list">
+        {% for post in ordered_posts %}
+          <li class="blog-list-item{% if post.pinned %} blog-list-item--pinned{% endif %}" data-tags="{{ post.tags | join: ',' }}">
+            <a class="blog-list-link" href="{{ post.url | relative_url }}">
+              <span class="blog-list-title">
+                {%- if post.pinned %}<span class="blog-list-pin">置顶</span>{% endif -%}
+                {{ post.title }}
+              </span>
+              <span class="blog-list-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+                {% assign word_count = post.content | strip_html | strip_newlines | replace: " ", "" | size %}
+                <span class="blog-list-words">{{ word_count }} 字</span>
+                {% if post.tags and post.tags.size > 0 %}
+                  <span class="blog-list-tags">
+                    {% for tag in post.tags %}<span class="blog-list-tag">{{ tag }}</span>{% endfor %}
+                  </span>
+                {% endif %}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="blog-empty blog-empty--filtered" hidden>这个分类下还没有文章 ✨</p>
+    </div>
   {% endif %}
 </div>
+<script>
+  (function () {
+    var links = document.querySelectorAll('.blog-cat-link');
+    var items = document.querySelectorAll('.blog-list-item');
+    var emptyTip = document.querySelector('.blog-empty--filtered');
+    if (!links.length) return;
+
+    function applyFilter(tag) {
+      var visible = 0;
+      items.forEach(function (item) {
+        var tags = item.dataset.tags ? item.dataset.tags.split(',') : [];
+        var show = !tag || tags.indexOf(tag) !== -1;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+      links.forEach(function (link) {
+        link.classList.toggle('is-active', link.dataset.tag === tag);
+      });
+      if (emptyTip) emptyTip.hidden = visible > 0;
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var tag = link.dataset.tag;
+        if (tag) {
+          history.replaceState(null, '', '#' + encodeURIComponent(tag));
+        } else {
+          history.replaceState(null, '', location.pathname);
+        }
+        applyFilter(tag);
+      });
+    });
+
+    var initial = decodeURIComponent(location.hash.slice(1));
+    if (initial) applyFilter(initial);
+  })();
+</script>
